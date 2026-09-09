@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA V2 | Premium Digital Assets & Resources</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --surface: rgba(17, 24, 39, 0.65);
+            --surface-hover: rgba(31, 41, 55, 0.8);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(99, 102, 241, 0.4);
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --accent: #6366f1;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --badge-green: #10b981;
+            --badge-green-bg: rgba(16, 185, 129, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .glow-sphere-1 {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-sphere-2 {
+            position: absolute;
+            top: 40%;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(3, 7, 18, 0.7);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-gradient);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 0.85rem;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        }
+
+        .nav-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--surface-hover);
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 1.5rem 2rem;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 99px;
+            color: #c7d2fe;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-pill span {
+            width: 6px;
+            height: 6px;
+            background-color: var(--badge-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--badge-green);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(180deg, #ffffff 30%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .controls-wrapper {
+            max-width: 1200px;
+            margin: 0 auto 3.5rem;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background-color: rgba(17, 24, 39, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
+        }
+
+        .category-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pill {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.4rem 1rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pill:hover, .pill.active {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.25);
+            background: var(--surface-hover);
+        }
+
+        .pill.active {
+            background: var(--accent-gradient);
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .grid-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 0 1.5rem 6rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 20px rgba(99, 102, 241, 0.15);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #c7d2fe;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .price {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--badge-green);
+            background: var(--badge-green-bg);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rating {
+            font-size: 0.85rem;
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .download-btn {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.6rem 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(99, 102, 241, 0.5);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-card {
+            background: #111827;
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modal-action {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            background: rgba(3, 7, 18, 0.9);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-sphere-1"></div>
+    <div class="glow-sphere-2"></div>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">A</div> AURA ASSETS
+        </div>
+        <button class="nav-btn" onclick="alert('Digital Store Live.')">Info</button>
+    </nav>
+
+    <header>
+        <div class="hero-pill"><span></span> 100% Free Instant Downloads</div>
+        <h1>Curated Digital Assets for Creators & Founders</h1>
+        <p>Premium-Vorlagen, Kalender, Notion-Systeme und KI-Prompts. Komplett kostenlos direkt herunterladen.</p>
+    </header>
+
+    <div class="controls-wrapper">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Suche (z.B. Kalender, Notion, Prompts)..." onkeyup="filterProducts()">
+        </div>
+        <div class="category-pills">
+            <button class="pill active" onclick="filterCategory('all', this)">Alle Assets</button>
+            <button class="pill" onclick="filterCategory('kalender', this)">Kalender & Planer</button>
+            <button class="pill" onclick="filterCategory('notion', this)">Notion</button>
+            <button class="pill" onclick="filterCategory('ki', this)">KI & Prompts</button>
+            <button class="pill" onclick="filterCategory('design', this)">Design</button>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid" id="productGrid">
+            
+            <div class="card" data-cat="kalender" data-title="jahreskalender 2026 printable pdf" onclick="openModal('Jahreskalender 2026', 'Ästhetischer Minimal-Kalender für 2026. Druckoptimiert in A4 & A3. Perfekt für GoodNotes oder den Schreibtisch.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Kalender</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>Jahreskalender 2026 (Printable)</h3>
+                    <p>Minimalistisches Design für das gesamte Jahr 2026. Inklusive Feiertage & Monatsübersichten.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.9 (142)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="kalender" data-title="2026 finanz budget planer sheet" onclick="openModal('Finanz & Budget Planer 2026', 'Behalte Kontrolle über dein Geld. Automatische Berechnungen für Einnahmen, Ausgaben, Fixkosten und Sparquoten.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Planer</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>2026 Finanz & Budget Planer</h3>
+                    <p>Behalte alle Einnahmen, Ausgaben und Sparziele im Blick. Automatische Auswertung inklusive.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 5.0 (98)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="ki" data-title="chatgpt business prompt bible ai" onclick="openModal('ChatGPT Business Prompt-Bibel', 'Über 100 verifizierte Prompts für Marketing, Copywriting, Geschäftsideen und Automatisierung.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">KI & Prompts</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>ChatGPT Prompt-Bibel 2026</h3>
+                    <p>100+ erprobte Prompts für Automatisierung, Marketing, Content und Verkaufs-Texte.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.9 (310)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="notion" data-title="notion second brain system template" onclick="openModal('Notion Second Brain System', 'Verwalte deine Projekte, Aufgaben, Wissensdatenbank und Zieldokumentation an einem Ort.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Notion</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>Notion 'Second Brain' System</h3>
+                    <p>Das ultimative All-in-one Organisations-System für Aufgaben, Projekte und Wissen.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 5.0 (420)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="design" data-title="canva instagram karussell vorlagen" onclick="openModal('10x Canva Karussell Vorlagen', 'Hochwertige Canva-Templates für Social-Media-Creators. Einfach Farben, Texte & Bilder anpassen.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Design</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>10x Canva Karussell-Vorlagen</h3>
+                    <p>Professionell gestaltete Vorlagen für Instagram- & LinkedIn-Posts. Anpassbar in Canva.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.8 (175)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="kalender" data-title="social media content kalender redaktionsplaner" onclick="openModal('Social Media Content-Kalender', 'Redaktionsplaner für TikTok, Instagram & YouTube inklusive Content-Ideen-Matrix.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Kalender</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>Social Media Redaktionsplaner</h3>
+                    <p>Plane deine Posts im Voraus. Inklusive 30 vorgefertigten Content-Ideen für Creators.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.9 (88)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="kalender" data-title="daily time blocking planer produktivität" onclick="openModal('Time-Blocking Tagesplaner', 'Maximale Fokuszeit durch Time-Blocking. Zeitblöcke strukturieren und Ablenkungen eliminieren.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Planer</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>Time-Blocking Tagesplaner</h3>
+                    <p>Strukturiere deinen Tag Stunde für Stunde mit der bewährten Time-Blocking Methode.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.7 (64)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="ki" data-title="midjourney v6 art prompt guide" onclick="openModal('Midjourney V6 Prompt Guide', 'Lerne fotorealistische KI-Bilder zu generieren. Inklusive Style-Codes und Licht-Prompts.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">KI & Prompts</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>Midjourney V6 Prompt Guide</h3>
+                    <p>Der ultimative Guide für fotorealistische KI-Generierung & Render-Styles.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.9 (210)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="notion" data-title="habit tracker gewohnheiten notion" onclick="openModal('Minimal Habit Tracker', 'Tracking-System für deine täglichen Gewohnheiten, Routine-Builds und Fortschritte.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Notion</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>Minimal Habit Tracker</h3>
+                    <p>Baue nachhaltige Gewohnheiten auf. Übersichtlicher Monats-Tracker im Clean-Design.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.8 (115)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+            <div class="card" data-cat="design" data-title="startup business launch checkliste" onclick="openModal('Startup Launch-Checkliste', 'Schritt-für-Schritt Fahrplan für Gründer. Von der Idee über Rechtliches bis zum Marketing.')">
+                <div>
+                    <div class="card-top">
+                        <span class="tag">Design</span>
+                        <span class="price">FREE</span>
+                    </div>
+                    <h3>Startup Launch-Checkliste</h3>
+                    <p>Der komplette Leitfaden von der Idee bis zum ersten Kunden für digitale Gründer.</p>
+                </div>
+                <div class="card-bottom">
+                    <span class="rating">★ 4.9 (190)</span>
+                    <button class="download-btn">Herunterladen</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="tag" style="margin-bottom: 0.75rem; display: inline-block;">PRODUKT VORSCHAU</div>
+            <h2 class="modal-title" id="modalTitle">Produkt Titel</h2>
+            <p class="modal-desc" id="modalDesc">Produkt Beschreibung...</p>
+            <button class="modal-action" onclick="alert('Download gestartet!'); closeModal();">Jetzt kostenlos herunterladen</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AURA Digital Assets. Ausgelegt für GitHub Pages.</p>
+    </footer>
+
+    <script>
+        let currentCat = 'all';
+
+        function filterProducts() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                const cat = card.getAttribute('data-cat');
+                
+                const matchesSearch = title.includes(input);
+                const matchesCat = (currentCat === 'all' || cat === currentCat);
+
+                if (matchesSearch && matchesCat) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function filterCategory(cat, element) {
+            currentCat = cat;
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            element.classList.add('active');
+            filterProducts();
+        }
+
+        function openModal(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
